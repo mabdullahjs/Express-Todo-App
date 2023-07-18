@@ -1,19 +1,25 @@
+require("dotenv").config();
 
 // imports
 const express = require("express");
 const mongoose = require("mongoose");
 const courseRoutes = require("./routes/course");
-var cors = require('cors')
-require("dotenv").config();
 
 //express app
 const app = express();
 
 //cors for production
+var cors = require('cors')
 app.use(cors()) 
 
 //middleware
 app.use(express.json());
+
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
+
 
 // routes
 app.use("/course" , courseRoutes);
@@ -21,20 +27,19 @@ app.use("/course" , courseRoutes);
 
 
 
-app.get("/", (req, res) => {
-  res.send("Server Started");
-});
+
 
 // connect database
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(
-        `Database Connected Successfully and server is listening on this port ${process.env.PORT}`
-      );
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+mongoose.set('strictQuery' , false);
+const connectDB = async ()=>{
+  try{
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log('database connected');
+  }catch(error){
+    console.log(error);
+  }
+}
+
+connectDB().then(()=>{
+  app.listen(process.env.PORT)
+})
