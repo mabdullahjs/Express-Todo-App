@@ -1,7 +1,7 @@
 const Course = require("../models/course");
 const mongoose = require("mongoose");
 
-// post reCourset of add Courses
+// post request of add Courses
 
 const addCourse = async (req, res) => {
   const {
@@ -19,13 +19,10 @@ const addCourse = async (req, res) => {
   res.json({ mssg: "course added successfully" });
 };
 
-//Get reCourset of all Courses
+//Get request of all Courses
 
 const getCourse = async (req, res) => {
-  const {pageNumber} = req.query || 1
-  const pageSize = 3
-  // const courses = await Course.find({});
-  const courses = await Course.find({}).limit(pageSize).skip((pageNumber - 1) * pageSize);
+  const courses = await Course.find({});
   res.json(courses);
 };
 
@@ -57,19 +54,7 @@ const deleteCourse = async (req, res) => {
   res.json(Courses);
 };
 
-// //delete many Courses
-
-// const deleteMore = async (req, res) => {
-//   const { deleteMany } = req.body;
-//   try {
-//     const Courses = await Course.deleteMany({ _id: { $in: deleteMany } });
-//     res.json("Course deleted successfully");
-//   } catch (err) {
-//     res.json(err);
-//   }
-// };
-
-// // update Course
+ // update Course
 
 const updateCourse = async (req, res) => {
   const { id } = req.params;
@@ -91,28 +76,6 @@ const updateCourse = async (req, res) => {
 
   res.json(Courses);
 };
-
-// // Approve Course by user
-// const approveCourse = async (req, res) => {
-//   const { id } = req.params;
-
-//   if (!mongoose.Types.ObjectId.isValid(id)) {
-//     return res.json({ error: "No such Course" });
-//   }
-
-//   const Courses = await Course.findOneAndUpdate(
-//     { _id: id },
-//     {
-//       ...req.body,
-//     }
-//   );
-
-//   if (!Courses) {
-//     return res.json({ error: "No such Course" });
-//   }
-
-//   res.json(Courses);
-// };
 
 module.exports = {
   getOneCourse,

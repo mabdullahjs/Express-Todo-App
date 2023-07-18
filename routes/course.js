@@ -1,6 +1,5 @@
 const express = require('express');
 const { addCourse, getOneCourse, getCourse, deleteCourse, updateCourse } = require('../controller/course');
-const { protectToken } = require('../controller/user');
 
 //route
 const router = express.Router();
@@ -9,7 +8,7 @@ const router = express.Router();
 router.post('/', addCourse);
 
 //getAllCourse route
-router.get('/', protectToken, getCourse);
+router.get('/', getCourse);
 
 // get single Coursetion
 router.get("/:id", getOneCourse);
@@ -18,7 +17,7 @@ router.get("/:id", getOneCourse);
 router.delete("/:id", deleteCourse);
 
 // update  Course
-router.patch("/:id", updateCourse);
+router.put("/:id", updateCourse);
 
 
 
