@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name":"InnovatrixTech",
+    "name":"express-todo-app",
     "builds": [
       {
         "src": "index.js",
