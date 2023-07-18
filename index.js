@@ -27,11 +27,11 @@ app.get("/", (req, res) => {
 
 // connect database
 mongoose
-  .connect("mongodb+srv://mabdullah2037:bustop123@todo-app.b5uowbs.mongodb.net/")
+  .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(5000, () => {
+    app.listen(process.env.PORT, () => {
       console.log(
-        `Database Connected Successfully and server is listening on this port 5000`
+        `Database Connected Successfully and server is listening on this port ${process.env.PORT}`
       );
     });
   })
