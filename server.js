@@ -30,16 +30,15 @@ app.use("/course" , courseRoutes);
 
 
 // connect database
-mongoose.set('strictQuery' , false);
-const connectDB = async ()=>{
-  try{
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log('database connected');
-  }catch(error){
-    console.log(error);
-  }
-}
-
-connectDB().then(()=>{
-  app.listen(process.env.PORT)
-})
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(
+        "Database Connected Successfully and server is listening on this port 5000"
+      );
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
